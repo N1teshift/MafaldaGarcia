@@ -7,7 +7,7 @@
 
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import { appWithTranslation } from "next-i18next";
+// import { appWithTranslation } from "next-i18next";
 import 'nprogress/nprogress.css';
 import ProgressBar from "../features/shared/components/ui/ProgressBar"; 
 
@@ -63,4 +63,5 @@ function App({ Component, pageProps }: AppProps) {
     );
 }
 
-export default appWithTranslation(App);
+export default App;
+// export default appWithTranslation(App);
