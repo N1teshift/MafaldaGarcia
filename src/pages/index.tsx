@@ -26,10 +26,9 @@ const sections: Array<{ heading?: string; paragraphs: string[]; backgroundColor?
 
 export default function MafaldaGarciaPageWrapper() {
   return (
-    <MafaldaGarciaPage 
-      images={images} 
-      title={title} 
-      sections={sections} 
-    />
+    <div>
+      <h1>Mafalda Garcia Page</h1>
+      <p>Testing if the page loads...</p>
+    </div>
   );
 }
