@@ -17,7 +17,7 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Canva Sans", Arial, Helvetica, sans-serif;
 }
 
 /* Custom styles for FullCalendar time grid */
