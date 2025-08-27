@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import GoBackButton from "./GoBackButton";
-import LanguageSwitcher from "./LanguageSwitcher";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 import { TranslationNamespaceContext, useFallbackTranslation} from '@/features/i18n';
 import { createComponentLogger } from '@/features/logging';
 import styles from './ComingSoonMessage.module.css';

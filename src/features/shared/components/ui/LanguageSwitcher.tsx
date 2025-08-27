@@ -2,6 +2,10 @@
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
+interface LanguageSwitcherProps {
+  absolute?: boolean;
+}
+
 const languages = [
   { code: 'en', name: 'EN', flag: '🇺🇸' },
   { code: 'pt', name: 'PT', flag: '🇵🇹' },
@@ -9,12 +13,12 @@ const languages = [
   { code: 'ru', name: 'RU', flag: '🇷🇺' }
 ];
 
-export const LanguageSwitcher: React.FC = () => {
+export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ absolute = true }) => {
   const router = useRouter();
   const { locale, pathname, asPath, query } = router;
 
   return (
-    <div className="grid grid-cols-2 gap-1">
+    <div className={`grid grid-cols-2 gap-1 ${absolute ? 'absolute top-4 right-4' : ''}`}>
       {languages.map((lang) => (
         <Link
           key={lang.code}
