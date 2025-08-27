@@ -1,5 +1,6 @@
-export { HeroSection } from './HeroSection';
 export { Navigation } from './Navigation';
+export { HeroSection } from './HeroSection';
+export { HeroContent } from './HeroContent';
 export { CanvasSection } from './CanvasSection';
 export { ExplorationSection } from './ExplorationSection';
 export { PerformancesSection } from './PerformancesSection';
@@ -10,3 +11,4 @@ export { VisualJourneySection } from './VisualJourneySection';
 export { ContactSection } from './ContactSection';
 export { ScrollAnimations } from './ScrollAnimations';
 export { ArtisticStyles } from './ArtisticStyles';
+export { LoadingScreen } from './LoadingScreen';

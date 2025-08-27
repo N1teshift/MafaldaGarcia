@@ -9,7 +9,7 @@ import { UserConfig } from 'next-i18next';
  * @returns An async `getStaticProps` function suitable for use in Next.js pages.
  */
 export function getStaticPropsWithTranslations(namespaces: string[] = ["common"]) {
-    return async function getStaticProps({ locale }: { locale: string }) {
+    return async function getStaticProps({ locale }: { locale?: string }) {
         // Create a properly typed config object for serverSideTranslations
         const typedConfig: UserConfig = {
             // Base config from next-i18next.config.ts
@@ -22,7 +22,7 @@ export function getStaticPropsWithTranslations(namespaces: string[] = ["common"]
         
         return {
             props: {
-                ...(await serverSideTranslations(locale, namespaces, typedConfig)),
+                ...(await serverSideTranslations(locale ?? 'en', namespaces, typedConfig)),
             },
         };
     };

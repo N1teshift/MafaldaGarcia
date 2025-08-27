@@ -3,7 +3,7 @@ import { UserConfig } from 'next-i18next';
 
 const nextI18NextConfig: UserConfig = {
     i18n: {
-        locales: ['en'],
+        locales: ['en', 'pt', 'lv', 'ru'],
         defaultLocale: 'en',
     },
     localePath: path.resolve('./locales'),

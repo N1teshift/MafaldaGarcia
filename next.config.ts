@@ -3,8 +3,8 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   i18n: {
-    locales: ["en"], // Supported languages
-    defaultLocale: "en",   // Default language
+    locales: ['en', 'pt', 'lv', 'ru'],
+    defaultLocale: 'en',
   },
   images: {
     remotePatterns: [

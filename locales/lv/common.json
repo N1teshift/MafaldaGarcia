@@ -1,0 +1,25 @@
+{
+  "navigation": {
+    "home": "Sākums",
+    "about": "Par mani",
+    "works": "Darbi",
+    "contact": "Kontakti"
+  },
+  "hero": {
+    "title": "Mafalda Garcia",
+    "subtitle": "Performances māksliniece",
+    "description": "Izpētot artivismu, rituālus un labsajūtu caur starpdisciplināru dialogu",
+    "paragraph1": "Es sāku izpētīt performances mākslu kā drošu vietu, kur izteikt savas jūtas un idejas par pēcpēcmoderno dzīvi. Ilgu laiku es turēju visu sevī, līdz atklāju šo spēcīgo komunikācijas veidu; bez vārdiem, izmantojot tikai savu ķermeni kā rīku starpdisciplināram dialogam, nevis kā bēgu no realitātes, bet kā dziļu veidu izteikt to, kas notiek manī un ap mani.",
+    "paragraph2": "Tas ļauj man saistīties ar citiem dziļā klusumā, kliegt, neizmantojot savu balsi, un ienirt laboratorijā, kur es varu atklāt savus jautājumus un uzaicināt citus atrast savus.",
+    "ctaButton": "Izpētīt Manu Darbu"
+  },
+  "sections": {
+    "exploration": "Izpēte",
+    "performances": "Performances",
+    "works": "Darbi",
+    "publications": "Publikācijas",
+    "visualJourney": "Vizuālais ceļojums",
+    "contact": "Kontakti"
+  },
+  "loading": "Ielādē Mafaldas Garsijas portfolio..."
+}

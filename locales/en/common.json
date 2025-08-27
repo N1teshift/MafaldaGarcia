@@ -1,4 +1,25 @@
 {
-  "welcome": "Welcome to Template Page",
-  "description": "This is a template project with logging and internationalization support."
+  "navigation": {
+    "home": "Home",
+    "about": "About",
+    "works": "Works",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Mafalda Garcia",
+    "subtitle": "Performance Artist",
+    "description": "Exploring artivism, rituals & well-being through interdisciplinary dialogue",
+    "paragraph1": "I began to explore performance art as a safe space to express my feelings & ideas about post-postmodern life. For a long time I kept everything inside, until I discovered this powerful way of communicating; without words, using only my body as a tool for interdisciplinary dialogue, not as an escape from reality, but as a profound way of expressing what is going on inside and outside of me.",
+    "paragraph2": "It allows me to connect with others in deep silence, to shout without using my voice, and to immerse myself in a laboratory where I can discover my own questions and invite others to find theirs.",
+    "ctaButton": "Explore My Work"
+  },
+  "sections": {
+    "exploration": "Exploration",
+    "performances": "Performances",
+    "works": "Works",
+    "publications": "Publications",
+    "visualJourney": "Visual Journey",
+    "contact": "Contact"
+  },
+  "loading": "Loading Mafalda Garcia's portfolio..."
 }

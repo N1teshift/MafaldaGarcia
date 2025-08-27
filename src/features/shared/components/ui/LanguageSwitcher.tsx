@@ -1,45 +1,36 @@
-﻿import { useRouter } from "next/router";
+﻿import React from 'react';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 
-/**
- * A component that allows users to switch the application's language.
- * Displays buttons for available languages (LT, EN, RU).
- * Can be optionally positioned absolutely in the top-right corner.
- *
- * @param props The component props.
- * @param props.absolute Optional. If true, positions the switcher absolutely. Defaults to true.
- * @returns A React element representing the language switcher.
- */
-const LanguageSwitcher = ({ absolute = true }: { absolute?: boolean }) => {
-    const languages = ["lt", "en", "ru"];
+const languages = [
+  { code: 'en', name: 'EN', flag: '🇺🇸' },
+  { code: 'pt', name: 'PT', flag: '🇵🇹' },
+  { code: 'lv', name: 'LV', flag: '🇱🇻' },
+  { code: 'ru', name: 'RU', flag: '🇷🇺' }
+];
 
-    const router = useRouter();
-    const { pathname, asPath, query } = router;
+export const LanguageSwitcher: React.FC = () => {
+  const router = useRouter();
+  const { locale, pathname, asPath, query } = router;
 
-    const changeLanguage = (locale: string) => {
-        router.push({ pathname, query }, asPath, { locale });
-    };
-
-    // Use absolute positioning only if absolute is true
-    const switcherClass = absolute
-        ? "absolute top-4 right-4"
-        : "flex items-center";
-
-    return (
-        <div className={switcherClass}>
-            <div className="flex space-x-4">
-                {languages.map((lang) => (
-                    <button
-                        key={lang}
-                        onClick={() => changeLanguage(lang)}
-                        className={`px-4 py-2 rounded text-black border border-black hover:bg-gray-200 
-            ${router.locale === lang ? "bg-gray-300" : "bg-gray-100"}`}
-                    >
-                        {lang.toUpperCase()}
-                    </button>
-                ))}
-            </div>
-        </div>
-    );
+  return (
+    <div className="grid grid-cols-2 gap-1">
+      {languages.map((lang) => (
+        <Link
+          key={lang.code}
+          href={{ pathname, query }}
+          as={asPath}
+          locale={lang.code}
+          className={`w-8 h-8 flex items-center justify-center rounded-md text-xs font-medium transition-all duration-200 hover:scale-110 ${
+            locale === lang.code
+              ? 'bg-artistic-gold text-black shadow-lg'
+              : 'bg-white/10 text-white hover:bg-white/20'
+          }`}
+          title={`${lang.name} - ${lang.flag}`}
+        >
+          {lang.flag}
+        </Link>
+      ))}
+    </div>
+  );
 };
-
-export default LanguageSwitcher;

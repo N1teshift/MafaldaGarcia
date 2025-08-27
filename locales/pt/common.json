@@ -1,0 +1,25 @@
+{
+  "navigation": {
+    "home": "Início",
+    "about": "Sobre",
+    "works": "Trabalhos",
+    "contact": "Contato"
+  },
+  "hero": {
+    "title": "Mafalda Garcia",
+    "subtitle": "Artista de Performance",
+    "description": "Explorando artivismo, rituais e bem-estar através do diálogo interdisciplinar",
+    "paragraph1": "Comecei a explorar a arte performática como um espaço seguro para expressar meus sentimentos e ideias sobre a vida pós-pós-moderna. Durante muito tempo mantive tudo dentro de mim, até descobrir esta forma poderosa de comunicar; sem palavras, usando apenas meu corpo como ferramenta para o diálogo interdisciplinar, não como uma fuga da realidade, mas como uma forma profunda de expressar o que está acontecendo dentro e fora de mim.",
+    "paragraph2": "Permite-me conectar com outros em silêncio profundo, gritar sem usar minha voz, e mergulhar em um laboratório onde posso descobrir minhas próprias perguntas e convidar outros a encontrar as deles.",
+    "ctaButton": "Explorar Meu Trabalho"
+  },
+  "sections": {
+    "exploration": "Exploração",
+    "performances": "Performances",
+    "works": "Trabalhos",
+    "publications": "Publicações",
+    "visualJourney": "Jornada Visual",
+    "contact": "Contato"
+  },
+  "loading": "Carregando o portfólio de Mafalda Garcia..."
+}
