@@ -37,6 +37,7 @@ export const MafaldaGarciaPage: React.FC<MafaldaGarciaPageProps> = ({
 
   const hasImages = images && images.length > 0;
   const hero = hasImages ? images[0] : undefined;
+  const educationImage = hasImages && images.length > 1 ? images[1] : hero;
 
   return (
     <>
@@ -46,9 +47,9 @@ export const MafaldaGarciaPage: React.FC<MafaldaGarciaPageProps> = ({
         <Navigation />
         <HeroSection heroImage={hero} />
         <PhilosophySection image={hero} />
-        <EducationSection />
+        <EducationSection image={educationImage} />
         <WorksSection images={images || []} />
-        <MajorWorksSection />
+        <MajorWorksSection images={images || []} />
         <PublicationsSection images={images || []} />
         <GallerySection images={images || []} />
         <ContactMeSection />

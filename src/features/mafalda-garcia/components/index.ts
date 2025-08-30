@@ -15,6 +15,8 @@ export { ContactMeSection } from './content/ContactMeSection';
 
 // UI
 export { WorkItem } from './ui/WorkItem';
+export { MajorWorkItem } from './ui/MajorWorkItem';
+export { PublicationItem } from './ui/PublicationItem';
 
 // Utilities
 export { ScrollAnimations } from './utilities/ScrollAnimations';

@@ -18,6 +18,40 @@ export const WorkItem: React.FC<WorkItemProps> = ({
   isReversed = false,
   quotes = []
 }) => {
+  // Function to extract YouTube video ID from URL
+  const getYouTubeVideoId = (url: string): string | null => {
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11) ? match[2] : null;
+  };
+
+  // Function to render YouTube embed if credits contains a YouTube URL
+    const renderYouTubeEmbed = () => {
+    if (!credits) return null;
+
+    const videoId = getYouTubeVideoId(credits);
+    if (!videoId) return null;
+
+    return (
+      <div className="mt-6">
+        <div className="relative overflow-hidden rounded-lg shadow-lg">
+          <div className="aspect-video">
+            <iframe
+              src={`https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&enablejsapi=0&origin=${typeof window !== 'undefined' ? window.location.origin : ''}`}
+              title={title}
+              className="w-full h-full"
+              frameBorder="0"
+              loading="lazy"
+              allowFullScreen
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              sandbox="allow-scripts allow-same-origin allow-presentation"
+            />
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   const content = (
     <div className="flex-1 space-y-6">
       <h3 className="font-playfair text-3xl lg:text-4xl text-gray-900 mb-6">
@@ -30,11 +64,12 @@ export const WorkItem: React.FC<WorkItemProps> = ({
             "{quote}"
           </p>
         ))}
-        {credits && (
+        {credits && !credits.includes('youtu.be') && !credits.includes('youtube.com') && (
           <p className="text-sm text-warm-gray italic mt-4">
             {credits}
           </p>
         )}
+        {renderYouTubeEmbed()}
       </div>
     </div>
   );
@@ -42,12 +77,13 @@ export const WorkItem: React.FC<WorkItemProps> = ({
   const imageContent = image && (
     <div className="flex-1">
       <div className="relative overflow-hidden rounded-lg hover-lift">
-        <div className="aspect-[4/3]">
+        <div className="aspect-[4/3] relative">
           <Image 
             src={image} 
             alt={title} 
             fill 
             className="object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             onError={(e) => {
               // Fallback to placeholder on error
               const target = e.target as HTMLImageElement;
@@ -64,18 +100,8 @@ export const WorkItem: React.FC<WorkItemProps> = ({
   );
 
   return (
-    <div className={`fade-in flex flex-col lg:flex-row gap-16 items-center ${isReversed ? 'lg:flex-row-reverse' : ''}`}>
-      {isReversed ? (
-        <>
-          {imageContent}
-          {content}
-        </>
-      ) : (
-        <>
-          {content}
-          {imageContent}
-        </>
-      )}
+    <div className="fade-in visible max-w-4xl mx-auto">
+      {content}
     </div>
   );
 };

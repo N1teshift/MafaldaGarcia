@@ -81,7 +81,13 @@ export const SmartImage: React.FC<SmartImageProps> = ({
   const showFallback = !src || imageError;
 
   return (
-    <div className={`relative overflow-hidden ${containerClassName}`}>
+    <div 
+      className={`relative overflow-hidden ${containerClassName}`} 
+      style={{ 
+        position: 'relative',
+        minHeight: fill && !containerClassName.includes('h-full') && !containerClassName.includes('h-screen') ? '400px' : 'auto'
+      }}
+    >
       {!showFallback ? (
         <>
           <Image
@@ -91,7 +97,7 @@ export const SmartImage: React.FC<SmartImageProps> = ({
             width={!fill ? width : undefined}
             height={!fill ? height : undefined}
             priority={imagePriority}
-            sizes={sizes}
+            sizes={sizes || (fill ? '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw' : undefined)}
             quality={quality}
             placeholder={placeholder}
             blurDataURL={blurDataURL}

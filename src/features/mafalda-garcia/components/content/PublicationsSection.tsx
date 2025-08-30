@@ -1,65 +1,87 @@
 import React from 'react';
 import Image from 'next/image';
+import { PublicationItem } from '../ui/PublicationItem';
 
 interface PublicationsSectionProps {
-  images: string[];
+  images?: string[];
 }
 
 export const PublicationsSection: React.FC<PublicationsSectionProps> = ({ images = [] }) => {
   const publications = [
     {
-      title: "Performance Art and Social Engagement",
-      description: "A comprehensive exploration of how performance art can serve as a tool for social change and community engagement, examining the intersection of art, activism, and well-being in contemporary society.",
-      image: images[7] || undefined
+      title: "Zaratan Contemporany Art Gallery",
+      subtitle: "Performance Cycle 'Do Lumiar'",
+      description: "Performance and Audiovisual live installation \"Free Doom\"\n\nby Co.Collective",
+      location: "Lisboa, PT",
+      year: "2018",
+      images: images.slice(0, 6)
     },
     {
-      title: "The Body as Political Instrument",
-      description: "An analysis of how the human body functions as a medium for political expression and social commentary in contemporary performance art, with focus on feminist perspectives and collective action.",
-      image: images[8] || undefined
+      title: "Freedom and Critical Thinking Forum I",
+      subtitle: "|| debates, poetry, art and music ||",
+      description: "Performance and Audiovisual live installation \" Free Doom\"\n\nby Co.Collective",
+      location: "Lisboa, PT",
+      year: "2018",
+      images: images.slice(0, 6)
+    },
+    {
+      title: "Criatura Instável (Creature unstable)",
+      subtitle: "Photography, Poetry & Risographic print",
+      description: "Photo by Carolina Sepúlveda\n\nPerformer and poem by Mafalda Garcia\n\nPrinted by Sal Nunkachov",
+      location: "Leiria, PT",
+      year: "2016",
+      images: images.slice(0, 6)
     }
   ];
 
   return (
-    <section id="publications" className="py-20 lg:py-32 bg-artistic-light">
-      <div className="max-w-7xl mx-auto px-8">
-        <h2 className="font-playfair text-5xl lg:text-6xl text-center mb-20 text-gray-900">
-          Publications
-        </h2>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-          {publications.map((pub, index) => (
-            <div key={index} className="fade-in">
-              <div className="relative overflow-hidden rounded-lg hover-lift mb-6">
-                <div className="aspect-[4/3]">
-                  {pub.image ? (
-                    <Image 
-                      src={pub.image} 
-                      alt={pub.title} 
-                      fill 
-                      className="object-cover"
-                      onError={(e) => {
-                        // Fallback to placeholder on error
-                        const target = e.target as HTMLImageElement;
-                        target.style.display = 'none';
-                        const parent = target.parentElement;
-                        if (parent) {
-                          parent.innerHTML = '<div class="w-full h-full bg-gray-200 flex items-center justify-center"><span class="text-gray-500">Publication Image</span></div>';
-                        }
-                      }}
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                      <span className="text-gray-500">Publication Image</span>
-                    </div>
-                  )}
-                </div>
-              </div>
-              <h3 className="font-playfair text-2xl lg:text-3xl mb-4 text-gray-900">
-                {pub.title}
-              </h3>
-              <p className="text-lg leading-relaxed text-gray-700">
-                {pub.description}
-              </p>
+    <section id="publications" className="py-20 lg:py-32 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <div className="text-center mb-16">
+          <h2 className="text-5xl lg:text-6xl font-playfair text-gray-900 mb-6">
+            Publications
+          </h2>
+          <p className="text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto">
+            Documenting artistic journeys through various mediums and collaborations
+          </p>
+        </div>
+
+        {/* Welcome Image */}
+        <div className="mb-20">
+          <div className="relative overflow-hidden rounded-lg shadow-lg">
+            <div className="aspect-[16/9] relative">
+              <Image
+                src={images[0] || "https://via.placeholder.com/1600x900/f3f4f6/6b7280?text=Publications+Welcome+Image"}
+                alt="Publications Welcome"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1200px) 100vw, 1200px"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                  const parent = target.parentElement;
+                  if (parent) {
+                    parent.innerHTML = '<div class="w-full h-full bg-gray-200 flex items-center justify-center"><span class="text-gray-500">Publications Welcome Image</span></div>';
+                  }
+                }}
+              />
             </div>
+          </div>
+        </div>
+
+        {/* Publications List */}
+        <div className="space-y-24">
+          {publications.map((publication, index) => (
+            <PublicationItem
+              key={index}
+              title={publication.title}
+              subtitle={publication.subtitle}
+              description={publication.description}
+              location={publication.location}
+              year={publication.year}
+              images={publication.images}
+            />
           ))}
         </div>
       </div>
