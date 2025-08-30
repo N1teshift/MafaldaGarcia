@@ -1,35 +1,38 @@
 import React from 'react';
 import Image from 'next/image';
 import { PublicationItem } from '../ui/PublicationItem';
+import { useFallbackTranslation } from '@/features/i18n';
 
 interface PublicationsSectionProps {
   images?: string[];
 }
 
 export const PublicationsSection: React.FC<PublicationsSectionProps> = ({ images = [] }) => {
+  const { t } = useFallbackTranslation();
+
   const publications = [
     {
-      title: "Zaratan Contemporany Art Gallery",
-      subtitle: "Performance Cycle 'Do Lumiar'",
-      description: "Performance and Audiovisual live installation \"Free Doom\"\n\nby Co.Collective",
-      location: "Lisboa, PT",
-      year: "2018",
+      title: t('publications.items.zaratan.title'),
+      subtitle: t('publications.items.zaratan.subtitle'),
+      description: t('publications.items.zaratan.description'),
+      location: t('publications.items.zaratan.location'),
+      year: t('publications.items.zaratan.year'),
       images: images.slice(0, 6)
     },
     {
-      title: "Freedom and Critical Thinking Forum I",
-      subtitle: "|| debates, poetry, art and music ||",
-      description: "Performance and Audiovisual live installation \" Free Doom\"\n\nby Co.Collective",
-      location: "Lisboa, PT",
-      year: "2018",
+      title: t('publications.items.freedomForum.title'),
+      subtitle: t('publications.items.freedomForum.subtitle'),
+      description: t('publications.items.freedomForum.description'),
+      location: t('publications.items.freedomForum.location'),
+      year: t('publications.items.freedomForum.year'),
       images: images.slice(0, 6)
     },
     {
-      title: "Criatura Instável (Creature unstable)",
-      subtitle: "Photography, Poetry & Risographic print",
-      description: "Photo by Carolina Sepúlveda\n\nPerformer and poem by Mafalda Garcia\n\nPrinted by Sal Nunkachov",
-      location: "Leiria, PT",
-      year: "2016",
+      title: t('publications.items.criatura.title'),
+      subtitle: t('publications.items.criatura.subtitle'),
+      description: t('publications.items.criatura.description'),
+      location: t('publications.items.criatura.location'),
+      year: t('publications.items.criatura.year'),
       images: images.slice(0, 6)
     }
   ];
@@ -40,10 +43,10 @@ export const PublicationsSection: React.FC<PublicationsSectionProps> = ({ images
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-5xl lg:text-6xl font-playfair text-gray-900 mb-6">
-            Publications
+            {t('publications.title')}
           </h2>
           <p className="text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto">
-            Documenting artistic journeys through various mediums and collaborations
+            {t('publications.subtitle')}
           </p>
         </div>
 

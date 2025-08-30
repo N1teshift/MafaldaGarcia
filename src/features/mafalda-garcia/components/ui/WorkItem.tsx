@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import { useFallbackTranslation } from '@/features/i18n';
 
 interface WorkItemProps {
   title: string;
@@ -18,33 +19,26 @@ export const WorkItem: React.FC<WorkItemProps> = ({
   isReversed = false,
   quotes = []
 }) => {
-  // Function to extract YouTube video ID from URL
-  const getYouTubeVideoId = (url: string): string | null => {
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-    const match = url.match(regExp);
-    return (match && match[2].length === 11) ? match[2] : null;
-  };
+  const { t } = useFallbackTranslation();
 
-  // Function to render YouTube embed if credits contains a YouTube URL
-    const renderYouTubeEmbed = () => {
+  const renderYouTubeEmbed = () => {
     if (!credits) return null;
-
-    const videoId = getYouTubeVideoId(credits);
-    if (!videoId) return null;
-
+    
+    const youtubeMatch = credits.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/);
+    if (!youtubeMatch) return null;
+    
+    const videoId = youtubeMatch[1];
     return (
       <div className="mt-6">
-        <div className="relative overflow-hidden rounded-lg shadow-lg">
-          <div className="aspect-video">
+        <div className="relative overflow-hidden rounded-lg">
+          <div className="aspect-video relative">
             <iframe
-              src={`https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&enablejsapi=0&origin=${typeof window !== 'undefined' ? window.location.origin : ''}`}
+              src={`https://www.youtube.com/embed/${videoId}`}
               title={title}
               className="w-full h-full"
               frameBorder="0"
-              loading="lazy"
-              allowFullScreen
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              sandbox="allow-scripts allow-same-origin allow-presentation"
+              allowFullScreen
             />
           </div>
         </div>

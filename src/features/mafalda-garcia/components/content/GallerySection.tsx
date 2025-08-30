@@ -1,56 +1,51 @@
 import React from 'react';
 import Image from 'next/image';
+import { useFallbackTranslation } from '@/features/i18n';
 
 interface GallerySectionProps {
   images: string[];
 }
 
 export const GallerySection: React.FC<GallerySectionProps> = ({ images = [] }) => {
+  const { t } = useFallbackTranslation();
+
   return (
     <section id="gallery" className="py-20 lg:py-32 bg-artistic-dark text-white">
       <div className="max-w-7xl mx-auto px-8">
-        {/* Title */}
-        <h2 className="font-playfair text-5xl lg:text-6xl text-center mb-20">
-          Visual Journey: Fragments of Creation
-        </h2>
-        
         {/* Photo Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-          {Array.from({ length: 6 }, (_, idx) => {
-            const src = images[idx] || process.env.NEXT_PUBLIC_PLACEHOLDER_URL || '';
-            return (
-              <div key={`gallery-${idx}`} className="fade-in visible hover-lift">
-                <div className="relative overflow-hidden rounded-lg bg-white shadow-lg">
-                  <div className="aspect-[4/5] relative">
-                    <Image 
-                      src={src} 
-                      alt={`Visual Journey ${idx + 1}`} 
-                      fill 
-                      className="object-cover" 
-                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      onError={(e) => {
-                        // Fallback to placeholder on error
-                        const target = e.target as HTMLImageElement;
-                        target.style.display = 'none';
-                        const parent = target.parentElement;
-                        if (parent) {
-                          parent.innerHTML = '<div class="w-full h-full bg-gray-300 flex items-center justify-center"><span class="text-gray-500">Image</span></div>';
-                        }
-                      }}
-                    />
-                  </div>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-16">
+          {images.slice(0, 8).map((image, index) => (
+            <div key={index} className="fade-in visible">
+              <div className="relative overflow-hidden rounded-lg hover-lift">
+                <div className="aspect-square relative">
+                  <Image 
+                    src={image} 
+                    alt={`Gallery Image ${index + 1}`} 
+                    fill 
+                    className="object-cover"
+                    sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                    onError={(e) => {
+                      // Fallback to placeholder on error
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = 'none';
+                      const parent = target.parentElement;
+                      if (parent) {
+                        parent.innerHTML = '<div class="w-full h-full bg-gray-200 flex items-center justify-center"><span class="text-gray-500">Gallery Image</span></div>';
+                      }
+                    }}
+                  />
                 </div>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
 
         {/* Quote from MG */}
         <div className="max-w-4xl mx-auto text-center">
           <blockquote className="artistic-quote relative text-2xl lg:text-3xl leading-relaxed italic font-light">
-            "In the space between movement and stillness, between sound and silence, we find the essence of what it means to be human. Each performance is a fragment of creation, a moment of truth captured in the ephemeral dance of existence."
+            {t('gallery.quote')}
           </blockquote>
-          <p className="text-lg text-warm-gray mt-6">— Mafalda Garcia</p>
+          <p className="text-lg text-warm-gray mt-6">{t('gallery.author')}</p>
         </div>
       </div>
     </section>

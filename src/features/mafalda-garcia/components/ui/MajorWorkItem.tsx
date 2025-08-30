@@ -1,14 +1,15 @@
 import React from 'react';
 import Image from 'next/image';
+import { useFallbackTranslation } from '@/features/i18n';
 
 interface MajorWorkItemProps {
   title: string;
   year: string;
   duration: string;
-  concept: string;
-  description: string;
-  credits: string;
-  location: string;
+  concept?: string;
+  description?: string;
+  credits?: string;
+  location?: string;
   images: string[];
 }
 
@@ -22,26 +23,29 @@ export const MajorWorkItem: React.FC<MajorWorkItemProps> = ({
   location,
   images
 }) => {
+  const { t } = useFallbackTranslation();
+
   return (
-    <div className="fade-in visible space-y-12">
-      {/* Image Gallery */}
+    <div className="fade-in visible max-w-6xl mx-auto">
+      {/* Images Grid */}
       {images && images.length > 0 && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {images.map((image, index) => (
-                            <div key={index} className="relative overflow-hidden rounded-lg hover-lift">
-              <div className="aspect-[4/5] relative">
-                <Image
-                  src={image}
-                  alt={`${title} - Image ${index + 1}`}
-                  fill
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+          {images.slice(0, 6).map((image, index) => (
+            <div key={index} className="relative overflow-hidden rounded-lg hover-lift">
+              <div className="aspect-[4/3] relative">
+                <Image 
+                  src={image} 
+                  alt={`${title} - Image ${index + 1}`} 
+                  fill 
                   className="object-cover"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   onError={(e) => {
+                    // Fallback to placeholder on error
                     const target = e.target as HTMLImageElement;
                     target.style.display = 'none';
                     const parent = target.parentElement;
                     if (parent) {
-                      parent.innerHTML = '<div class="w-full h-full bg-gray-200 flex items-center justify-center"><span class="text-gray-500">Image</span></div>';
+                      parent.innerHTML = '<div class="w-full h-full bg-gray-200 flex items-center justify-center"><span class="text-gray-500">Work Image</span></div>';
                     }
                   }}
                 />
@@ -60,72 +64,43 @@ export const MajorWorkItem: React.FC<MajorWorkItemProps> = ({
           </h3>
           <div className="flex flex-wrap gap-6 text-lg text-gray-700">
             <div>
-              <span className="font-medium">Year of Creation:</span> {year}
+              <span className="font-medium">{t('ui.yearOfCreation')}</span> {year}
             </div>
             <div>
-              <span className="font-medium">Duration:</span> {duration}
+              <span className="font-medium">{t('ui.duration')}</span> {duration}
             </div>
           </div>
         </div>
 
         {/* Concept */}
-        <div className="space-y-4">
-          <h4 className="text-2xl lg:text-3xl font-playfair text-gray-900">
-            Concept & Description
-          </h4>
-          <div className="space-y-4 text-lg leading-relaxed text-gray-700">
-            <p>{concept}</p>
-            {description.split('\n\n').map((paragraph, index) => (
-              <p key={index}>{paragraph}</p>
-            ))}
+        {concept && (
+          <div className="space-y-4">
+            <h4 className="text-2xl lg:text-3xl font-playfair text-gray-900">
+              {t('ui.conceptDescription')}
+            </h4>
+            <div className="space-y-4 text-lg leading-relaxed text-gray-700">
+              <p>{concept}</p>
+              {description && description.split('\n\n').map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Credits and Location */}
         <div className="space-y-4 pt-6 border-t border-gray-200">
-          <div className="text-sm text-warm-gray">
-            {credits.split('\n').map((line, index) => {
-              // Check if line contains a URL
-              const urlMatch = line.match(/(https?:\/\/[^\s]+)/);
-              if (urlMatch) {
-                const url = urlMatch[1];
-                const textBeforeUrl = line.substring(0, line.indexOf(url));
-                const textAfterUrl = line.substring(line.indexOf(url) + url.length);
-                
-                return (
-                  <p key={index}>
-                    {textBeforeUrl}
-                    <a 
-                      href={url} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-artistic-gold hover:underline"
-                    >
-                      {url}
-                    </a>
-                    {textAfterUrl}
-                  </p>
-                );
-              }
-              
-              // Check if this is a section header (like "Press & Media Coverage:")
-              if (line.includes(':')) {
-                const [header, ...rest] = line.split(':');
-                return (
-                  <p key={index}>
-                    <span className="font-medium">{header}:</span> {rest.join(':')}
-                  </p>
-                );
-              }
-              
-              return (
-                <p key={index}>
-                  {line}
-                </p>
-              );
-            })}
-            <p><span className="font-medium">Location:</span> {location}</p>
-          </div>
+          {credits && (
+            <div>
+              <h4 className="text-xl font-playfair text-gray-900 mb-2">{t('ui.credits')}</h4>
+              <p className="text-lg leading-relaxed text-gray-700 whitespace-pre-line">{credits}</p>
+            </div>
+          )}
+          {location && (
+            <div>
+              <h4 className="text-xl font-playfair text-gray-900 mb-2">{t('ui.location')}</h4>
+              <p className="text-lg leading-relaxed text-gray-700">{location}</p>
+            </div>
+          )}
         </div>
       </div>
     </div>

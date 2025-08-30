@@ -1,16 +1,19 @@
 import React from 'react';
 import Image from 'next/image';
+import { useFallbackTranslation } from '@/features/i18n';
 
 interface EducationSectionProps {
   image?: string;
 }
 
 export const EducationSection: React.FC<EducationSectionProps> = ({ image }) => {
+  const { t } = useFallbackTranslation();
+
   return (
     <section id="education" className="py-20 lg:py-32 bg-artistic-light">
       <div className="max-w-7xl mx-auto px-8">
         <h2 className="font-playfair text-5xl lg:text-6xl text-center mb-20 text-gray-900">
-          Education & Training
+          {t('education.title')}
         </h2>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
@@ -18,16 +21,16 @@ export const EducationSection: React.FC<EducationSectionProps> = ({ image }) => 
             {/* Education */}
             <div className="space-y-6">
               <h3 className="text-3xl lg:text-4xl font-playfair text-gray-900 mb-6">
-                Education
+                {t('education.education')}
               </h3>
               <ul className="space-y-4 text-lg leading-relaxed text-gray-700">
                 <li className="flex items-start">
                   <span className="text-artistic-gold mr-3 mt-2">•</span>
-                  <span><strong>Bachelor's in Philosophy</strong>, Faculty of Humanities, University of Coimbra (2010)</span>
+                  <span><strong>{t('education.degrees.philosophy')}</strong>, {t('education.institutions.coimbra')} ({t('education.years.philosophy')})</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-artistic-gold mr-3 mt-2">•</span>
-                  <span><strong>Master's in Arts in Education</strong>, Faculty of Fine Arts, University of Lisbon (2017)</span>
+                  <span><strong>{t('education.degrees.arts')}</strong>, {t('education.institutions.lisbon')} ({t('education.years.arts')})</span>
                 </li>
               </ul>
             </div>
@@ -35,36 +38,36 @@ export const EducationSection: React.FC<EducationSectionProps> = ({ image }) => 
             {/* Training & Workshops */}
             <div className="space-y-6">
               <h3 className="text-3xl lg:text-4xl font-playfair text-gray-900 mb-6">
-                Training & Workshops
+                {t('education.training')}
               </h3>
               <ul className="space-y-4 text-lg leading-relaxed text-gray-700">
                 <li className="flex items-start">
                   <span className="text-artistic-gold mr-3 mt-2">•</span>
-                  <span><strong>Street Theatre Workshop</strong> with Adrian Schvarzstein (2023)</span>
+                  <span><strong>{t('education.workshops.streetTheatre')}</strong> {t('education.workshopDetails.streetTheatre')}</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-artistic-gold mr-3 mt-2">•</span>
-                  <span><strong>Community Theatre Methods</strong>, BATS Baltic Applied Theatre School (2021)</span>
+                  <span><strong>{t('education.workshops.communityTheatre')}</strong>, {t('education.workshopDetails.communityTheatre')}</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-artistic-gold mr-3 mt-2">•</span>
-                  <span><strong>Performing Art: Movement, Energy & Creativity</strong>, VOZDUKH Center (2020)</span>
+                  <span><strong>{t('education.workshops.performingArt')}</strong>, {t('education.workshopDetails.performingArt')}</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-artistic-gold mr-3 mt-2">•</span>
-                  <span><strong>Voice and Body – Performing Arts Workshop</strong>, SOU Movement & Art Centre (2012)</span>
+                  <span><strong>{t('education.workshops.voiceBody')}</strong>, {t('education.workshopDetails.voiceBody')}</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-artistic-gold mr-3 mt-2">•</span>
-                  <span><strong>Aesthetics Course</strong>, AR.CO - Art Center, Lisbon (2011)</span>
+                  <span><strong>{t('education.workshops.aesthetics')}</strong>, {t('education.workshopDetails.aesthetics')}</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-artistic-gold mr-3 mt-2">•</span>
-                  <span><strong>Performing Arts Internship</strong>, ControversasIdeias, Palmela (2011)</span>
+                  <span><strong>{t('education.workshops.internship')}</strong>, {t('education.workshopDetails.internship')}</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-artistic-gold mr-3 mt-2">•</span>
-                  <span><strong>Participated in 1st Int'l Conference on Art Research</strong>, FBAUL (2010)</span>
+                  <span><strong>{t('education.workshops.conference')}</strong>, {t('education.workshopDetails.conference')}</span>
                 </li>
               </ul>
             </div>
@@ -93,7 +96,7 @@ export const EducationSection: React.FC<EducationSectionProps> = ({ image }) => 
                   />
                 ) : (
                   <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                    <span className="text-gray-500">Education Image</span>
+                    <span className="text-gray-500">{t('ui.educationImage')}</span>
                   </div>
                 )}
               </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { useFallbackTranslation } from '@/features/i18n';
 
 interface FloatingFooterProps {
   isAtBottom: boolean;
@@ -7,6 +8,7 @@ interface FloatingFooterProps {
 
 export const FloatingFooter: React.FC<FloatingFooterProps> = ({ isAtBottom }) => {
   const router = useRouter();
+  const { t } = useFallbackTranslation();
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
@@ -68,7 +70,7 @@ export const FloatingFooter: React.FC<FloatingFooterProps> = ({ isAtBottom }) =>
                 : 'text-gray-700 hover:text-artistic-gold'
             }`}
           >
-            Contact Me
+            {t('ui.contactMe')}
           </button>
 
           {/* Language Switcher */}
@@ -76,7 +78,7 @@ export const FloatingFooter: React.FC<FloatingFooterProps> = ({ isAtBottom }) =>
             <span className={`text-sm font-medium ${
               isAtBottom ? 'text-white/70' : 'text-gray-500'
             }`}>
-              Language:
+              {t('ui.language')}
             </span>
             <div className="flex space-x-1">
               {['en', 'pt', 'lv', 'ru'].map((locale) => (

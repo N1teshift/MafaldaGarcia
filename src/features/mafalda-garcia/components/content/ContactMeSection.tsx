@@ -1,7 +1,10 @@
 import React from 'react';
 import Image from 'next/image';
+import { useFallbackTranslation } from '@/features/i18n';
 
 export const ContactMeSection: React.FC = () => {
+  const { t } = useFallbackTranslation();
+
   return (
     <section id="contact" className="relative py-20 lg:py-32 bg-artistic-dark text-white">
       {/* Background gradient overlay for footer merge effect */}
@@ -12,31 +15,27 @@ export const ContactMeSection: React.FC = () => {
           {/* Contact Information */}
           <div className="space-y-8">
             <h2 className="font-playfair text-5xl lg:text-6xl text-white">
-              CONTACT ME
+              {t('contact.title')}
             </h2>
             
             <div className="space-y-6 text-lg leading-relaxed text-gray-300">
               <div>
-                <h3 className="font-medium text-white mb-2">ADDRESS</h3>
-                <p>
-                  Ausekļi", Rjabki, Sakstagala pag.,<br />
-                  Rēzeknes nov., LV-4645<br />
-                  latvia
-                </p>
+                <h3 className="font-medium text-white mb-2">{t('contact.address')}</h3>
+                <p dangerouslySetInnerHTML={{ __html: t('contact.addressDetails') }} />
               </div>
               
               <div>
-                <h3 className="font-medium text-white mb-2">Phone</h3>
-                <p>(00371) 23551790</p>
+                <h3 className="font-medium text-white mb-2">{t('contact.phone')}</h3>
+                <p>{t('contact.phoneNumber')}</p>
               </div>
               
               <div>
-                <h3 className="font-medium text-white mb-2">Email</h3>
+                <h3 className="font-medium text-white mb-2">{t('contact.email')}</h3>
                 <a 
                   href="mailto:mafalda.garsija@gmail.com" 
                   className="text-artistic-gold hover:underline transition-colors duration-300"
                 >
-                  mafalda.garsija@gmail.com
+                  {t('contact.emailAddress')}
                 </a>
               </div>
             </div>
