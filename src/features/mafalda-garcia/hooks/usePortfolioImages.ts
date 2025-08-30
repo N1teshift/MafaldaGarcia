@@ -7,12 +7,14 @@ interface ImageUrls {
 interface UsePortfolioImagesOptions {
   numImageSlots?: number;
   placeholderImage?: string;
+  prefix?: string;
 }
 
 export function usePortfolioImages(options: UsePortfolioImagesOptions = {}) {
   const { 
     numImageSlots = 16, 
-    placeholderImage = 'education.jpg' 
+    placeholderImage = 'education.jpg',
+    prefix = ''
   } = options;
   
   const [images, setImages] = useState<string[]>([]);
@@ -23,25 +25,36 @@ export function usePortfolioImages(options: UsePortfolioImagesOptions = {}) {
     async function fetchImages() {
       try {
         setError(null);
-        const response = await fetch('/api/images');
-        const data: { images: ImageUrls; availableImages?: string[] } = await response.json();
+        // Single-placeholder mode: if a global placeholder is set, skip API
+        const globalPlaceholder = process.env.NEXT_PUBLIC_PLACEHOLDER_URL;
+        if (globalPlaceholder) {
+          setImages(Array.from({ length: numImageSlots }, () => globalPlaceholder));
+          return;
+        }
 
-        // Use specified placeholder from Firebase, or fallback to first available image
-        const placeholderUrl =
-          data.images?.[placeholderImage] ||
-          (data.availableImages && data.availableImages.length > 0
-            ? data.images[data.availableImages[0]]
-            : `https://via.placeholder.com/800x600/cccccc/666666?text=${placeholderImage}`);
+        // Otherwise, try API for real images (will gracefully fallback server-side)
+        const response = await fetch(`/api/images${prefix ? `?prefix=${encodeURIComponent(prefix)}` : ''}`);
+        if (!response.ok) {
+          throw new Error(`Failed to fetch images (${response.status})`);
+        }
 
-        // Fill all slots with the same placeholder image
-        const imageArray = Array.from({ length: numImageSlots }, () => placeholderUrl);
-        setImages(imageArray);
+        const data: { availableImages: string[]; images: Record<string, string> } = await response.json();
+
+        const resolvedUrls = (data.availableImages || [])
+          .map((p) => data.images?.[p])
+          .filter((u): u is string => Boolean(u));
+
+        const placeholderUrl = `https://via.placeholder.com/800x600/f3f4f6/6b7280?text=${encodeURIComponent(placeholderImage)}`;
+        const filled = resolvedUrls.length >= numImageSlots
+          ? resolvedUrls.slice(0, numImageSlots)
+          : [...resolvedUrls, ...Array.from({ length: numImageSlots - resolvedUrls.length }, () => placeholderUrl)];
+
+        setImages(filled);
       } catch (error) {
-        console.error('Error fetching images:', error);
+        console.error('Error preparing images:', error);
         setError('Failed to load images');
-        
-        // Fallback: fill with generic placeholder if API fails
-        const fallbackUrl = `https://via.placeholder.com/800x600/cccccc/666666?text=${placeholderImage}`;
+        const globalPlaceholder = process.env.NEXT_PUBLIC_PLACEHOLDER_URL;
+        const fallbackUrl = globalPlaceholder || `https://via.placeholder.com/800x600/f3f4f6/6b7280?text=${encodeURIComponent(placeholderImage)}`;
         setImages(Array.from({ length: numImageSlots }, () => fallbackUrl));
       } finally {
         setLoading(false);
@@ -49,7 +62,7 @@ export function usePortfolioImages(options: UsePortfolioImagesOptions = {}) {
     }
 
     fetchImages();
-  }, [numImageSlots, placeholderImage]);
+  }, [numImageSlots, placeholderImage, prefix]);
 
   return { images, loading, error };
 }

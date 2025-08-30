@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
     defaultLocale: 'en',
   },
   images: {
+    // Avoid optimizer 500s in dev and allow external placeholders
+    unoptimized: true,
+    domains: ['via.placeholder.com', 'firebasestorage.googleapis.com'],
     remotePatterns: [
       {
         protocol: 'https',
