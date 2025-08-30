@@ -7,13 +7,24 @@ import { getFirebaseConfig, validateFirebaseConfig } from './config';
 export class FirebaseStorageService {
   private storage: admin.storage.Storage;
   private bucket: any;
+  private bucketName: string;
+  private isConfigured: boolean;
 
   constructor() {
     const config = getFirebaseConfig();
     const errors = validateFirebaseConfig(config);
-    
+
+    // Graceful degradation: if config is missing/invalid, do NOT throw.
+    // Mark service as not configured so callers can fall back to placeholders.
     if (errors.length > 0) {
-      throw new Error(`Firebase configuration errors: ${errors.join(', ')}`);
+      console.warn(
+        `Firebase Storage is not configured. Operating in placeholder-only mode. Missing: ${errors.join(', ')}`
+      );
+      this.isConfigured = false;
+      this.storage = ({} as unknown) as admin.storage.Storage;
+      this.bucket = null;
+      this.bucketName = config.storageBucket || '';
+      return;
     }
 
     // Initialize Firebase Admin if not already initialized
@@ -26,6 +37,8 @@ export class FirebaseStorageService {
 
     this.storage = admin.storage();
     this.bucket = this.storage.bucket(config.storageBucket!);
+    this.bucketName = config.storageBucket!;
+    this.isConfigured = true;
   }
 
   /**
@@ -33,12 +46,13 @@ export class FirebaseStorageService {
    */
   async getImageUrl(imagePath: string): Promise<string> {
     try {
-      const file = this.bucket.file(imagePath);
-      const [url] = await file.getSignedUrl({
-        action: 'read',
-        expires: Date.now() + 24 * 60 * 60 * 1000, // 24 hours
-      });
-      return url;
+      if (!this.isConfigured) {
+        throw new Error('Firebase Storage not configured');
+      }
+      // Public read: construct a stable, tokenless URL
+      // Using the Firebase v0 endpoint ensures compatibility with Firebase Storage rules
+      const encodedPath = encodeURIComponent(imagePath);
+      return `https://firebasestorage.googleapis.com/v0/b/${this.bucketName}/o/${encodedPath}?alt=media`;
     } catch (error) {
       console.error(`Error getting signed URL for ${imagePath}:`, error);
       throw new Error(`Failed to get image URL for ${imagePath}`);
@@ -51,6 +65,11 @@ export class FirebaseStorageService {
   async getImageUrls(imagePaths: string[]): Promise<Record<string, string>> {
     const urls: Record<string, string> = {};
     
+    if (!this.isConfigured) {
+      // Not configured: return empty map so caller can use placeholders
+      return urls;
+    }
+
     await Promise.all(
       imagePaths.map(async (path) => {
         try {
@@ -70,6 +89,9 @@ export class FirebaseStorageService {
    */
   async listImages(directory: string): Promise<string[]> {
     try {
+      if (!this.isConfigured || !this.bucket) {
+        return [];
+      }
       const [files] = await this.bucket.getFiles({
         prefix: directory,
         delimiter: '/',
