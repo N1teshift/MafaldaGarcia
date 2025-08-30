@@ -127,7 +127,7 @@ export const WorksSection: React.FC<WorksSectionProps> = ({ images = [] }) => {
   ];
 
   return (
-    <section id="works" className="py-20 lg:py-32 bg-white">
+    <section id="works" className="py-20 lg:py-32 bg-artistic-light">
       <div className="max-w-7xl mx-auto px-8">
         <h2 className="font-playfair text-5xl lg:text-6xl text-center mb-20 text-gray-900">
           Works and Contributions
@@ -145,6 +145,7 @@ export const WorksSection: React.FC<WorksSectionProps> = ({ images = [] }) => {
           ))}
         </div>
       </div>
+      <div className="section-divider"></div>
     </section>
   );
 };

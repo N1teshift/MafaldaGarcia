@@ -20,12 +20,6 @@ export const HeroContent: React.FC = () => {
           {t('hero.paragraph2')}
         </p>
       </div>
-      <a 
-        href="#education" 
-        className="inline-block mt-12 px-8 py-4 border-2 border-artistic-gold text-artistic-gold hover:bg-artistic-gold hover:text-black transition-all duration-300 uppercase tracking-wider font-medium"
-      >
-        {t('hero.ctaButton')}
-      </a>
     </div>
   );
 };

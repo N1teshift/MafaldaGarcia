@@ -92,10 +92,32 @@ export const ArtisticStyles: React.FC = () => {
         right: -40px;
       }
 
+      .section-divider {
+        height: 1px;
+        background: linear-gradient(90deg, transparent 0%, var(--accent-gold) 50%, transparent 100%);
+        opacity: 0.3;
+        margin: 0 auto;
+        width: 80%;
+        max-width: 800px;
+      }
+
+      .section-divider.dark {
+        background: linear-gradient(90deg, transparent 0%, var(--warm-gray) 50%, transparent 100%);
+      }
+
+      /* Floating footer styles */
+      .floating-footer-merge {
+        background: linear-gradient(to bottom, transparent 0%, var(--primary-black) 100%);
+      }
+
       @media (max-width: 768px) {
         .artistic-quote::before,
         .artistic-quote::after {
           display: none;
+        }
+        
+        .section-divider {
+          width: 90%;
         }
       }
     `}</style>

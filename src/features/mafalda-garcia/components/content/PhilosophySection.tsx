@@ -61,6 +61,7 @@ export const PhilosophySection: React.FC<PhilosophySectionProps> = ({ image }) =
           </div>
         </div>
       </div>
+      <div className="section-divider"></div>
     </section>
   );
 };

@@ -35,8 +35,8 @@ export const PublicationsSection: React.FC<PublicationsSectionProps> = ({ images
   ];
 
   return (
-    <section id="publications" className="py-20 lg:py-32 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="publications" className="py-20 lg:py-32 bg-artistic-light">
+      <div className="max-w-7xl mx-auto px-8">
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-5xl lg:text-6xl font-playfair text-gray-900 mb-6">
@@ -85,6 +85,7 @@ export const PublicationsSection: React.FC<PublicationsSectionProps> = ({ images
           ))}
         </div>
       </div>
+      <div className="section-divider dark"></div>
     </section>
   );
 };

@@ -17,6 +17,7 @@ export { ContactMeSection } from './content/ContactMeSection';
 export { WorkItem } from './ui/WorkItem';
 export { MajorWorkItem } from './ui/MajorWorkItem';
 export { PublicationItem } from './ui/PublicationItem';
+export { FloatingFooter } from './ui/FloatingFooter';
 
 // Utilities
 export { ScrollAnimations } from './utilities/ScrollAnimations';

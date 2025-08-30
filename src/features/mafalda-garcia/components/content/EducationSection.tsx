@@ -7,7 +7,7 @@ interface EducationSectionProps {
 
 export const EducationSection: React.FC<EducationSectionProps> = ({ image }) => {
   return (
-    <section id="education" className="py-20 lg:py-32 bg-white">
+    <section id="education" className="py-20 lg:py-32 bg-artistic-light">
       <div className="max-w-7xl mx-auto px-8">
         <h2 className="font-playfair text-5xl lg:text-6xl text-center mb-20 text-gray-900">
           Education & Training
@@ -101,6 +101,7 @@ export const EducationSection: React.FC<EducationSectionProps> = ({ image }) => 
           </div>
         </div>
       </div>
+      <div className="section-divider"></div>
     </section>
   );
 };

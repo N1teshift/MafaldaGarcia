@@ -9,11 +9,12 @@ import {
   PublicationsSection,
   GallerySection,
   ContactMeSection,
+  FloatingFooter,
   ScrollAnimations,
   ArtisticStyles,
   LoadingScreen
 } from './components';
-import { usePortfolioImages } from './hooks';
+import { usePortfolioImages, useScrollPosition } from './hooks';
 
 interface MafaldaGarciaPageProps {
   title?: string;
@@ -26,6 +27,7 @@ export const MafaldaGarciaPage: React.FC<MafaldaGarciaPageProps> = ({
     numImageSlots: 16,
     placeholderImage: 'education.jpg'
   });
+  const { isAtBottom } = useScrollPosition();
 
   if (loading) {
     return <LoadingScreen />;
@@ -55,6 +57,7 @@ export const MafaldaGarciaPage: React.FC<MafaldaGarciaPageProps> = ({
         <ContactMeSection />
       </main>
 
+      <FloatingFooter isAtBottom={isAtBottom} />
       <ScrollAnimations />
     </>
   );

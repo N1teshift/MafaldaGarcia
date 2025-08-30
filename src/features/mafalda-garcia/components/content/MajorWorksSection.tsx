@@ -102,6 +102,7 @@ export const MajorWorksSection: React.FC<MajorWorksSectionProps> = ({ images = [
           ))}
         </div>
       </div>
+      <div className="section-divider"></div>
     </section>
   );
 };
