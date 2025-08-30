@@ -1,21 +1,14 @@
-// Layout & Navigation Components
-export { Navigation } from './layout/Navigation';
-export { LoadingScreen } from './layout/LoadingScreen';
-
-// Content Section Components
-export { HeroSection } from './content/HeroSection';
-export { HeroContent } from './content/HeroContent';
-export { PhilosophySection } from './content/PhilosophySection';
-export { EducationSection } from './content/EducationSection';
-export { WorksSection } from './content/WorksSection';
-export { MajorWorksSection } from './content/MajorWorksSection';
-export { PublicationsSection } from './content/PublicationsSection';
-export { GallerySection } from './content/GallerySection';
-export { ContactMeSection } from './content/ContactMeSection';
-
-// UI Components
-export { WorkItem } from './ui/WorkItem';
-
-// Utility Components
-export { ScrollAnimations } from './utilities/ScrollAnimations';
-export { ArtisticStyles } from './utilities/ArtisticStyles';
+export { Navigation } from './Navigation';
+export { HeroSection } from './HeroSection';
+export { HeroContent } from './HeroContent';
+export { CanvasSection } from './CanvasSection';
+export { ExplorationSection } from './ExplorationSection';
+export { PerformancesSection } from './PerformancesSection';
+export { WorkItem } from './WorkItem';
+export { WorksSection } from './WorksSection';
+export { PublicationsSection } from './PublicationsSection';
+export { VisualJourneySection } from './VisualJourneySection';
+export { ContactSection } from './ContactSection';
+export { ScrollAnimations } from './ScrollAnimations';
+export { ArtisticStyles } from './ArtisticStyles';
+export { LoadingScreen } from './LoadingScreen';
