@@ -62,14 +62,24 @@ export class ImageService {
       const placeholderUrls: Record<string, string> = {};
       requiredPaths.forEach((path, index) => {
         const fileName = path.split('/').pop() || `image-${index + 1}`;
-        placeholderUrls[path] = `${placeholderBaseUrl}/800x600/cccccc/666666?text=${encodeURIComponent(fileName)}`;
+        placeholderUrls[path] = `${placeholderBaseUrl}/800x600/f3f4f6/6b7280?text=${encodeURIComponent(fileName)}`;
       });
 
-      // Get URLs for available images
-      const availableImageUrls = await this.storageService.getImageUrls(availableImages);
+      // Only try to get Firebase URLs if we have available images
+      if (availableImages.length > 0) {
+        try {
+          const availableImageUrls = await this.storageService.getImageUrls(availableImages);
+          // Merge available images with placeholders
+          return { ...placeholderUrls, ...availableImageUrls };
+        } catch (firebaseError) {
+          console.warn('Firebase URLs failed, using placeholders only:', firebaseError);
+          // If Firebase URLs fail, just return placeholders
+          return placeholderUrls;
+        }
+      }
       
-      // Merge available images with placeholders
-      return { ...placeholderUrls, ...availableImageUrls };
+      // If no available images or Firebase failed, return placeholders
+      return placeholderUrls;
     } catch (error) {
       const apiError = handleFirebaseError(error, 'getImageUrlsWithPlaceholders');
       console.error('Error getting image URLs with placeholders:', apiError);
@@ -77,7 +87,7 @@ export class ImageService {
       // Return placeholders only if everything fails
       const fallbackUrls: Record<string, string> = {};
       requiredPaths.forEach((path, index) => {
-        fallbackUrls[path] = `${placeholderBaseUrl}/800x600/cccccc/666666?text=Error+${index + 1}`;
+        fallbackUrls[path] = `${placeholderBaseUrl}/800x600/f3f4f6/6b7280?text=${encodeURIComponent(path.split('/').pop() || `image-${index + 1}`)}`;
       });
       return fallbackUrls;
     }
@@ -122,7 +132,8 @@ export class ImageService {
       const fallbackMetadata: Record<string, ImageMetadata> = {};
       
       requiredPaths.forEach((path, index) => {
-        const fallbackUrl = `${placeholderBaseUrl}/800x600/cccccc/666666?text=Error+${index + 1}`;
+        const fileName = path.split('/').pop() || `image-${index + 1}`;
+        const fallbackUrl = `${placeholderBaseUrl}/800x600/f3f4f6/6b7280?text=${encodeURIComponent(fileName)}`;
         fallbackUrls[path] = fallbackUrl;
         fallbackMetadata[path] = {
           path,

@@ -2,7 +2,13 @@ import React from 'react';
 import {
   Navigation,
   HeroSection,
-  ContactSection,
+  PhilosophySection,
+  EducationSection,
+  WorksSection,
+  MajorWorksSection,
+  PublicationsSection,
+  GallerySection,
+  ContactMeSection,
   ScrollAnimations,
   ArtisticStyles,
   LoadingScreen
@@ -39,12 +45,13 @@ export const MafaldaGarciaPage: React.FC<MafaldaGarciaPageProps> = ({
       <main className="min-h-screen w-full bg-white text-black font-inter">
         <Navigation />
         <HeroSection heroImage={hero} />
-        {/* EducationSection will be added here */}
-        {/* WorksSection will be added here */}
-        {/* MajorWorksSection will be added here */}
-        {/* PublicationsSection will be added here */}
-        {/* VisualJourneySection will be added here */}
-        <ContactSection />
+        <PhilosophySection image={hero} />
+        <EducationSection />
+        <WorksSection images={images || []} />
+        <MajorWorksSection />
+        <PublicationsSection images={images || []} />
+        <GallerySection images={images || []} />
+        <ContactMeSection />
       </main>
 
       <ScrollAnimations />

@@ -7,19 +7,26 @@ This feature contains all the components and logic for Mafalda Garcia's artist w
 ```
 src/features/mafalda-garcia/
 ├── components/
+│   ├── layout/                     # Layout & Navigation Components
+│   │   ├── Navigation.tsx          # Fixed navigation bar
+│   │   └── LoadingScreen.tsx       # Loading state component
+│   ├── content/                    # Content Section Components
+│   │   ├── HeroSection.tsx         # Hero section with artist intro
+│   │   ├── HeroContent.tsx         # Hero content component
+│   │   ├── CanvasSection.tsx       # "body, my canvas. our voice" section
+│   │   ├── ExplorationSection.tsx  # "Exploration Through Performance" section
+│   │   ├── PerformancesSection.tsx # "Artistic Performances and Collaborations" section
+│   │   ├── WorksSection.tsx        # "Major Works and Contributions" section
+│   │   ├── PublicationsSection.tsx # Publications section
+│   │   ├── VisualJourneySection.tsx# "Visual Journey: Fragments of Creation" section
+│   │   └── ContactMeSection.tsx    # Contact section
+│   ├── ui/                         # Reusable UI Components
+│   │   └── WorkItem.tsx            # Reusable component for individual works
+│   ├── utilities/                  # Utility & Helper Components
+│   │   ├── ArtisticStyles.tsx      # Global CSS styles
+│   │   └── ScrollAnimations.tsx    # JavaScript for scroll animations
 │   ├── index.ts                    # Export all components
-│   ├── HeroSection.tsx             # Hero section with artist intro
-│   ├── Navigation.tsx              # Fixed navigation bar
-│   ├── CanvasSection.tsx           # "body, my canvas. our voice" section
-│   ├── ExplorationSection.tsx      # "Exploration Through Performance" section
-│   ├── PerformancesSection.tsx     # "Artistic Performances and Collaborations" section
-│   ├── WorkItem.tsx                # Reusable component for individual works
-│   ├── WorksSection.tsx            # "Major Works and Contributions" section
-│   ├── PublicationsSection.tsx     # Publications section
-│   ├── VisualJourneySection.tsx    # "Visual Journey: Fragments of Creation" section
-│   ├── ContactSection.tsx          # Contact section
-│   ├── ScrollAnimations.tsx        # JavaScript for scroll animations
-│   └── ArtisticStyles.tsx          # Global CSS styles
+│   └── README.md                   # Components documentation
 ├── MafaldaGarciaPage.tsx           # Main page component
 └── README.md                       # This file
 ```
@@ -72,7 +79,7 @@ src/features/mafalda-garcia/
 - Quote from Mafalda Garcia
 - Dark background with artistic styling
 
-### ContactSection
+### ContactMeSection
 - Contact information and social links
 - Simple centered layout
 
@@ -91,14 +98,41 @@ src/features/mafalda-garcia/
 
 The main page component (`MafaldaGarciaPage.tsx`) orchestrates all these components together. The original page file (`src/pages/mafalda-garcia.tsx`) now simply imports and uses this feature.
 
+## Component Organization
+
+The components are now organized into logical groups for better maintainability:
+
+### Layout & Navigation (`components/layout/`)
+- **Navigation.tsx** - Fixed navigation bar with smooth scrolling
+- **LoadingScreen.tsx** - Loading state component
+
+### Content Sections (`components/content/`)
+- **HeroSection.tsx** - Hero section with artist intro and image
+- **HeroContent.tsx** - Content for the hero section
+- **CanvasSection.tsx** - "body, my canvas. our voice" section
+- **ExplorationSection.tsx** - "Exploration Through Performance" section
+- **PerformancesSection.tsx** - "Artistic Performances and Collaborations" section
+- **WorksSection.tsx** - "Major Works and Contributions" section
+- **PublicationsSection.tsx** - Publications section
+- **VisualJourneySection.tsx** - "Visual Journey: Fragments of Creation" section
+- **ContactMeSection.tsx** - Contact section
+
+### UI Components (`components/ui/`)
+- **WorkItem.tsx** - Reusable component for displaying individual works
+
+### Utilities (`components/utilities/`)
+- **ArtisticStyles.tsx** - Global CSS styles and artistic theming
+- **ScrollAnimations.tsx** - JavaScript for scroll animations and interactions
+
 ## Benefits of Refactoring
 
 1. **Modularity**: Each section is now a separate, reusable component
 2. **Maintainability**: Easier to update individual sections
 3. **Reusability**: Components can be used in other parts of the application
 4. **Testing**: Individual components can be tested in isolation
-5. **Organization**: Clear separation of concerns
+5. **Organization**: Clear separation of concerns with logical grouping
 6. **Scalability**: Easy to add new sections or modify existing ones
+7. **Structure**: Components are organized by purpose (layout, content, UI, utilities)
 
 ## Styling
 
